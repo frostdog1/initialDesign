@@ -1,0 +1,362 @@
+// import React in our code
+import React, { useState } from 'react';
+import {Font} from 'expo'
+//import React from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import { createStackNavigator} from '@react-navigation/stack';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import { createDrawerNavigator } from "@react-navigation/drawer";
+
+
+import { Home } from './components/Screens';
+import { Survey } from './components/Screens';
+import { Settings } from './components/Screens';
+
+// import all the components we are going to use
+import {
+  SafeAreaView,
+  StyleSheet,
+  View,
+  Text,
+  Image,
+  Button,
+} from 'react-native';
+
+//import AppIntroSlider to use it
+import AppIntroSlider from 'react-native-app-intro-slider';
+
+const App = () => {
+  const [showRealApp, setShowRealApp] = useState(false);
+
+  const onDone = () => {
+    setShowRealApp(true);
+  };
+
+  const onSkip = () => {
+    setShowRealApp(true);
+  };
+
+  // buttons on main screen
+const HomeStack = createStackNavigator();
+
+// bottom tabs
+const Tabs = createBottomTabNavigator();
+
+const SettingsStack = createStackNavigator();
+
+const SettingsStackScreen = () => (
+  <SettingsStack.Navigator>
+    <SettingsStack.Screen name="Settings" component={Settings} />
+  </SettingsStack.Navigator>
+);
+
+const HomeStackScreen = () => (
+  <HomeStack.Navigator>
+    <HomeStack.Screen name="Home" component={Home} />
+    <HomeStack.Screen name="Survey" component={Survey} />
+  </HomeStack.Navigator>
+
+);
+
+  const RenderItem = ({ item }) => {
+    return (
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: item.backgroundColor,
+          alignItems: 'center',
+          justifyContent: 'space-around',
+          paddingBottom: 100,
+        }}>
+        <Text style={styles.introTitleThinStyle}>{item.title}</Text>
+        <Text style={styles.introTitleStyle}>{item.title1}</Text>
+        <Image style={styles.introImageStyle} source={item.image} />
+        <Text style={styles.introTextStyle}>{item.text}</Text>
+      </View>
+    );
+  };
+
+  return (
+    <>
+      {showRealApp ? (
+        <NavigationContainer>
+        <Tabs.Navigator>
+          <Tabs.Screen name="Home" component={HomeStackScreen} />
+          <Tabs.Screen name="Settings" component={SettingsStackScreen} />
+          
+        </Tabs.Navigator>
+
+        </NavigationContainer>
+      ) : (
+        <AppIntroSlider
+          data={slides}
+          renderItem={RenderItem}
+          onDone={onDone}
+          showSkipButton={true}
+          onSkip={onSkip}
+        />
+      )}
+    </>
+  );
+};
+
+export default App;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#572882',
+    alignItems: 'center',
+    padding: 1,
+    justifyContent: 'center',
+  },
+
+  titleStyle: { // not the slider
+    paddingTop: 50, //10 // 50
+    textAlign: 'center',
+    fontSize: 10,
+    fontWeight: 'normal',
+  },
+  paragraphStyle: { // not the slider
+    padding: 20,
+    textAlign: 'center',
+    fontSize: 16,
+  },
+  introImageStyle: {
+    width: 350,
+    height: 300, 
+    resizeMode: 'contain'
+    
+  },
+
+  introTextStyle: { 
+    fontSize: 20,
+    fontWeight: "100",
+    color: 'white',
+    textAlign: 'center',
+    paddingTop: 0,
+    paddingHorizontal: 50,
+  },
+  introTitleStyle: { // Lumbago
+    fontSize: 40,
+    color: 'white',
+    textAlign: 'center',
+    //marginTop: -40,
+    textShadowRadius: 2,
+    textShadowColor: "black",
+    paddingTop: 10,
+    
+  },
+
+  introTitleThinStyle: { // title
+    fontSize: 30,
+    color: 'white',
+    textAlign: 'center',
+    paddingTop: 30,
+    paddingHorizontal: 30,
+
+  },
+
+  introTitleThin1Style: { // the low back pain management tool
+    fontSize: 20,
+    color: 'white',
+    textAlign: 'center',
+    paddingHorizontal: 20,
+
+  },
+  
+});
+
+const slides = [
+  {
+    key: 's1',
+    text: 'Follow this quick tutorial to learn how it can benefit you.',
+    title: 'Welcome!',
+    //title: 'Welcome to Lumbago',
+    title2: '',
+    image: require('./assets/medicalTransparent.png'),
+    backgroundColor: '#572882',
+  },
+  {
+    key: 's2',
+    title: 'Evaluate Your Recovery',
+
+    text: 'Complete short questionnaires designed to assess pain-related disability',
+    
+    //Using a clinically proven method for assessing pain related disability',
+    image: require('./assets/addDoc2.png'),
+    backgroundColor: '#572882',
+  },
+  {
+    key: 's3',
+    title: 'View your analytics',
+    text: 'Gather insights into the nature of \n your lower-back pain',
+    image: require('./assets/stats.png'),
+    backgroundColor: '#572882',
+  },
+  {
+    key: 's4',
+    title: 'Gain a deeper understanding',
+    text: 'Automated summaries to give \n you a breakdown of your recovery',
+    image: require('./assets/fileAnalysis.png'),
+    backgroundColor: '#572882',
+  },
+/*   {
+    key: 's5',
+    title: 'Bus Booking',
+    text: 'Enjoy Travelling on Bus with flat 100% off',
+    image: {
+      uri:
+        'https://raw.githubusercontent.com/AboutReact/sampleresource/master/intro_bus_ticket_booking.png',
+    },
+    backgroundColor: '#572882',
+  },
+  {
+    key: 's6',
+    title: 'Train Booking',
+    text: ' 10% off on first Train booking',
+    image: {
+      uri:
+        'https://raw.githubusercontent.com/AboutReact/sampleresource/master/intro_train_ticket_booking.png',
+    },
+    backgroundColor: '#572882',
+  }, */
+];
+/* import React from 'react';
+import { StyleSheet, View, Text, Container, ActivityIndicator } from 'react-native';
+//import {Container} from '';
+import AppIntroSlider from 'react-native-app-intro-slider';
+
+//import { createStackNavigator } from 'react-navigation-stack';
+import AsyncStorage from '@react-native-community/async-storage'
+import Home from "./components/Home";
+
+//import { AntDesign } from '../../styles/variables/Icons';
+
+export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showRealApp: false,
+      loading: true,
+      //To show the main page of the app
+    };
+  }
+
+  componentDidMount() {
+    AsyncStorage.getItem('first_time').then((value) => {
+      this.setState({ showRealApp: !!value, loading: false });
+    });
+  }
+  _onDone = () => {
+    // After user finished the intro slides. Show real app through
+    // navigation or simply by controlling state
+    AsyncStorage.setItem('first_time', 'true').then(() => {
+      this.setState({ showRealApp: true });
+        this.props.navigation.navigate('Home');
+    });
+  };
+  _onSkip = () => {
+    // After user skip the intro slides. Show real app through
+    // navigation or simply by controlling state
+    AsyncStorage.setItem('first_time', 'true').then(() => {
+      this.setState({ showRealApp: true });
+        this.props.navigation.navigate('Home');
+    });
+  };
+
+  render() {
+    if (this.state.loading) return <ActivityIndicator size="large" />
+    //If false show the Intro Slides
+    if (this.state.showRealApp) {
+      //Real Application
+      return (
+        <View
+          style={{
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+            padding: 50,
+          }}>
+          <Text>
+            This will be your screen when you click Skip from any slide or Done
+            button at last
+          </Text>
+        </View>
+      );
+    } else {
+      //Intro slides
+      return (
+        <Container>
+          <AppIntroSlider
+            slides={slides}
+            //comming from the JsonArray below
+            onDone={this._onDone}
+            //Handler for the done On last slide
+            showSkipButton={true}
+            onSkip={this._onSkip}
+            showPrevButton={true}
+            prevLabel={<Text>name="arrowleft" size={23}</Text>}
+            nextLabel={<Text>name="arrowright" size={23}</Text>}
+            doneLabel="Done"
+          />
+        </Container>
+      );
+    }
+  }
+}
+const slides = [
+  {
+    key: 's1',
+    text: 'Follow this quick tutorial to learn how it can benefit you.',
+    title: 'Welcome!',
+    //title: 'Welcome to Lumbago',
+    title2: '',
+    image: require('./assets/medicalTransparent.png'),
+    backgroundColor: '#572882',
+  },
+  {
+    key: 's2',
+    title: 'Evaluate Your Recovery',
+
+    text: 'Complete short questionnaires designed to assess pain-related disability',
+    
+    //Using a clinically proven method for assessing pain related disability',
+    image: require('./assets/addDoc2.png'),
+    backgroundColor: '#572882',
+  },
+  {
+    key: 's3',
+    title: 'View your analytics',
+    text: 'Gather insights into the nature of \n your lower-back pain',
+    image: require('./assets/stats.png'),
+    backgroundColor: '#572882',
+  },
+  {
+    key: 's4',
+    title: 'Gain a deeper understanding',
+    text: 'Automated summaries to give \n you a breakdown of your recovery',
+    image: require('./assets/fileAnalysis.png'),
+    backgroundColor: '#572882',
+  },
+/*   {
+    key: 's5',
+    title: 'Bus Booking',
+    text: 'Enjoy Travelling on Bus with flat 100% off',
+    image: {
+      uri:
+        'https://raw.githubusercontent.com/AboutReact/sampleresource/master/intro_bus_ticket_booking.png',
+    },
+    backgroundColor: '#572882',
+  },
+  {
+    key: 's6',
+    title: 'Train Booking',
+    text: ' 10% off on first Train booking',
+    image: {
+      uri:
+        'https://raw.githubusercontent.com/AboutReact/sampleresource/master/intro_train_ticket_booking.png',
+    },
+    backgroundColor: '#572882',
+  }, 
+]; */

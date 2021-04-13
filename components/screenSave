@@ -1,0 +1,95 @@
+import { StatusBar } from 'expo-status-bar';
+import React from 'react';
+//import Rmdq from './components/Rmdq';
+import { StyleSheet, Text, View, Button, Alert, ScrollView, FlatList, TouchableOpacity,} from 'react-native';
+//import { TouchableOpacity } from 'react-native-gesture-handler';
+
+data: [
+  {id:1,  title: "You",      color:"#FF4500", image:"https://img.icons8.com/color/70/000000/name.png"},
+  {id:2,  title: "Home",     color:"#87CEEB", image:"https://img.icons8.com/office/70/000000/home-page.png"},
+  {id:3,  title: "Love",     color:"#4682B4", image:"https://img.icons8.com/color/70/000000/two-hearts.png"} ,
+  {id:4,  title: "Family",   color:"#6A5ACD", image:"https://img.icons8.com/color/70/000000/family.png"} ,
+  {id:5,  title: "Friends",  color:"#FF69B4", image:"https://img.icons8.com/color/70/000000/groups.png"} ,
+  {id:6,  title: "School",   color:"#00BFFF", image:"https://img.icons8.com/color/70/000000/classroom.png"} ,
+  {id:7,  title: "Things",   color:"#00FFFF", image:"https://img.icons8.com/dusk/70/000000/checklist.png"} ,
+  {id:8,  title: "World",    color:"#20B2AA", image:"https://img.icons8.com/dusk/70/000000/globe-earth.png"} ,
+  {id:9,  title: "Remember", color:"#191970", image:"https://img.icons8.com/color/70/000000/to-do.png"} ,
+  {id:10, title: "Game",     color:"#008080", image:"https://img.icons8.com/color/70/000000/basketball.png"} ,
+]
+
+const ScreenContainer = ({ children }) => (
+
+  <View style={styles.container}>{children}</View>
+
+);
+
+// add a navigation prop
+// can now use this prop for navigation.push()
+// push is stacknavigator function that is used when your in the same stack
+// use navigation.naviagte for going back to other screens/stacks
+
+// onPress={() => navigation.push('Survey', { name: 'Example'})}
+export const Home = ({navigation}) => (
+
+  <ScreenContainer>
+  
+    <Button title="Continue" onPress={() => Alert.alert("Go to Main Page!")} />
+    <Button title="Test Your Back Pain" onPress={() => navigation.push('Survey')} />
+  </ScreenContainer>
+
+);
+
+export const Settings = () => (
+
+  <ScreenContainer>
+    <Text>Settings page gg</Text>
+  </ScreenContainer>
+
+);
+
+export const Survey = () => (
+    <ScreenContainer>
+      <Text>survey pageeeee</Text>
+    </ScreenContainer>
+
+);
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  button:{
+    paddingHorizontal:20,
+    paddingVertical: 10,
+    marginVertical:10,
+    borderRadius: 5
+  },
+  boxContainer: {
+    backgroundColor: "rgba(230, 230, 230,1)",
+    elevation: 18,
+    borderRadius: 5,
+    overflow: "hidden",
+    width: 150,
+    height: 150
+  },
+  image: {
+    flex: 1
+  },
+  image_imageStyle: {},
+  rect8Filler: {
+    flex: 1
+  },
+  rect8: {
+    height: 27,
+    backgroundColor: "rgba(21,19,19,0.5)",
+    justifyContent: "center"
+  },
+  text22: {
+    color: "rgba(247,252,253,1)",
+    fontSize: 14,
+    alignSelf: "center"
+  }
+});
